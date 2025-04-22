@@ -1,0 +1,8 @@
+stage (checlkput) {
+    steps {
+        script {
+            echo "Checking out the code..."
+            checkout scm
+        }
+    }
+}
