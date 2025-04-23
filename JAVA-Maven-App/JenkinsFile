@@ -1,8 +1,26 @@
-stage (checlkput) {
-    steps {
-        script {
-            echo "Checking out the code..."
-            checkout scm
+pipeline {
+    agent {
+        docker {
+            image 'abhishekf5/maven-abhishek-docker-agent:v1'
+            args '--user root -v /var/run/docker.sock:var/run/docker.sock' //mount Docker socket to access host Docker daemon
+        }
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                sh 'echo passed'
+                //git branch: 'main', url: 'https://github.com/gyanvi01/jenkins-project.git'
+            }
+        }
+
+        stage('Build and Test') {
+            steps {
+                sh 'ls -ltr'
+                //build a project and create a Jar file
+
+            }
+
         }
     }
 }
