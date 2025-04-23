@@ -18,9 +18,22 @@ pipeline {
             steps {
                 sh 'ls -ltr'
                 //build a project and create a Jar file
+                sh 'cd {repo_name}/spring-boot-app && mvn clean package'
 
             }
+        }
 
+        stage ('Static Code Analysis') {
+            environment {
+                //SonarQube server URL and authentication token
+                SONAR_HOST_URL = 'http://localhost:9000'
+            }
+            steps {
+                withCredentials([string(credentialsId: 'soanrqube', variable: 'SONAR_AUTH_TOKEN')]) {
+                //run SonarQube analysis
+                sh 'cd{repo_name}/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=$SONAR_HOST_URL'
+                }
+            }
         }
     }
 }
