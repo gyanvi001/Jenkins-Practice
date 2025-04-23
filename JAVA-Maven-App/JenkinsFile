@@ -35,5 +35,21 @@ pipeline {
                 }
             }
         }
+
+        stage ('Build and Push Docker Image') {
+            environment {
+                DOCKER_IMAGE = 'abhishekf5/ultimate-cicd:$(BUILD_NUMBER)'
+                //Dockeker file location = "JAVA-MAVEN-APP/Dockerfile"
+                REGISTRY_CREDENTIALS = credentials('dockerhub')
+            }
+
+            steps {
+                script {
+                    //build a Docker image and push it to Docker Hub
+                    docker.build(DOCKER_IMAGE, '-f {repo_name}/spring-boot-app/Dockerfile .').push()
+                }
+            }
+        }
+
     }
 }
