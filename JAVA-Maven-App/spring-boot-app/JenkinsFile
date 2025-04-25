@@ -6,7 +6,6 @@ pipeline {
         }
     }
     // other stages here
-}
 
     stages {
         stage('Checkout') {
