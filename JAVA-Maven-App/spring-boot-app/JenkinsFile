@@ -30,7 +30,7 @@ pipeline {
                 SONAR_HOST_URL = 'http://44.192.109.15:9000'
             }
             steps {
-                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'Sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                 //run SonarQube analysis
                 sh 'cd JAVA-Maven-App/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=$SONAR_HOST_URL'
                 }
