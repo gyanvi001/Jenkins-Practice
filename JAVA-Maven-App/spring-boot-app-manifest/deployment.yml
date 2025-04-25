@@ -19,3 +19,7 @@ spec:
         image: abhishekf5/ultimate-cicd:replaceImageTag
         ports:
         - containerPort: 8080
+
+
+
+        
