@@ -26,10 +26,10 @@ pipeline {
         stage ('Static Code Analysis') {
             environment {
                 //SonarQube server URL and authentication token
-                SONAR_HOST_URL = 'http://localhost:9000'
+                SONAR_HOST_URL = 'http://44.192.109.15:9000'
             }
             steps {
-                withCredentials([string(credentialsId: 'soanrqube', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
                 //run SonarQube analysis
                 sh 'cd JAVA-Maven-App/spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=$SONAR_HOST_URL'
                 }
@@ -55,13 +55,13 @@ pipeline {
     stage('Update Deployment File') {
         environment {
             GIT_REPO_NAME = "Jenkins-Practice"
-            GIT_USER_NAME = "gyanvi001"
+            GIT_USER_NAME = "gyanvi01"
         }
         steps {
             withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
                 sh '''
                     git config user.email "gyanvipandey01@gmail.com"
-                    git config user.name "Gyanvi001"
+                    git config user.name "Gyanvi01"
                     BUILD_NUMBER=${BUILD_NUMBER}
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" JAVA-Maven-App/spring-boot-app-manifest/deployment.yml
                     git add JAVA-Maven-App/spring-boot-app-manifest/deployment.yml
